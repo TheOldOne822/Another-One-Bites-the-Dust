@@ -1,0 +1,30 @@
+{
+    "textures": {
+        "layer0": "aobd:items/ore",
+        "layer1": "aobd:items/ore_overlay"
+    },
+    "elements": [
+        {   "from": [ 0, 0, 0 ],
+            "to": [ 16, 16, 16 ],
+            "faces": {
+                "down":  { "uv": [ 0, 0, 16, 16 ], "texture": "#layer0" },
+                "up":    { "uv": [ 0, 0, 16, 16 ], "texture": "#layer0" },
+                "north": { "uv": [ 0, 0, 16, 16 ], "texture": "#layer0" },
+                "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#layer0" },
+                "west":  { "uv": [ 0, 0, 16, 16 ], "texture": "#layer0" },
+                "east":  { "uv": [ 0, 0, 16, 16 ], "texture": "#layer0" }
+            }
+        },
+        {   "from": [ 0, 0, 0 ],
+            "to": [ 16, 16, 16 ],
+            "faces": {
+                "down":  { "uv": [ 0, 0, 16, 16 ], "texture": "#layer1" },
+                "up":    { "uv": [ 0, 0, 16, 16 ], "texture": "#layer1" },
+                "north": { "uv": [ 0, 0, 16, 16 ], "texture": "#layer1" },
+                "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#layer1" },
+                "west":  { "uv": [ 0, 0, 16, 16 ], "texture": "#layer1" },
+                "east":  { "uv": [ 0, 0, 16, 16 ], "texture": "#layer1" }
+            }
+        }
+    ]
+}

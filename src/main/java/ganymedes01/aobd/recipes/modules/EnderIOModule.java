@@ -4,7 +4,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import ganymedes01.aobd.lib.CompatType;
 import ganymedes01.aobd.ore.Ore;
 import ganymedes01.aobd.recipes.RecipesModule;
-import cpw.mods.fml.common.event.FMLInterModComms;
+import net.minecraftforge.fml.common.event.FMLInterModComms;
 
 public class EnderIOModule extends RecipesModule {
 	

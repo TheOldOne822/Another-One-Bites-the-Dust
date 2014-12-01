@@ -3,6 +3,7 @@ package ganymedes01.aobd.ore;
 import ganymedes01.aobd.AOBD;
 import ganymedes01.aobd.items.AOBDItem;
 import ganymedes01.aobd.lib.CompatType;
+import ganymedes01.aobd.lib.Reference;
 import ganymedes01.aobd.recipes.ModulesHandler;
 
 import java.awt.Color;
@@ -13,17 +14,22 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemModelMesher;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.resources.model.IBakedModel;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class OreFinder {
 
@@ -66,6 +72,26 @@ public class OreFinder {
 		for (CompatType compat : CompatType.values())
 			generateItems(compat, compat.prefixes());
 
+		// Just for testing obviously. Remove after at least one compat is done
+		for (Ore ore : Ore.ores) {
+			register("chunk", ore);
+			register("cleanGravel", ore);
+			register("clump", ore);
+			register("cluster", ore);
+			register("crushed", ore);
+			register("crushedPurified", ore);
+			register("crystal", ore);
+			register("crystalline", ore);
+			register("dirtyGravel", ore);
+			register("dust", ore);
+			register("dustDirty", ore);
+			register("dustTiny", ore);
+			register("nugget", ore);
+			register("ore", ore);
+			register("reduced", ore);
+			register("shard", ore);
+		}
+
 		String[] items = AOBD.userDefinedItems.trim().split(",");
 		if (items.length > 0)
 			for (String prefix : items) {
@@ -76,6 +102,10 @@ public class OreFinder {
 						registerOre(prefix + name, new AOBDItem(prefix, ore));
 					}
 			}
+	}
+
+	private static void register(String str, Ore ore) {
+		registerOre(str + ore.name(), new AOBDItem(str, ore));
 	}
 
 	private static void generateItems(CompatType compat, String[] prefixes) {
@@ -97,6 +127,10 @@ public class OreFinder {
 			GameRegistry.registerItem(item, ore);
 			OreDictionary.registerOre(ore, item);
 			itemMap.put(ore, item);
+
+			ItemModelMesher mesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
+			mesher.register(item, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + item.getBaseName(), "inventory"));
+			ModelBakery.addVariantName(item, Reference.MOD_ID + ":" + item.getBaseName());
 		}
 	}
 
@@ -114,6 +148,7 @@ public class OreFinder {
 		return stack.getItem().getColorFromItemStack(stack, pass);
 	}
 
+	@SuppressWarnings("unchecked")
 	private static Color getColour(String oreName) {
 		ArrayList<ItemStack> ores = OreDictionary.getOres("ingot" + oreName);
 		if (ores.isEmpty())
@@ -123,21 +158,25 @@ public class OreFinder {
 		float green = 0;
 		float blue = 0;
 		ArrayList<Color> colours = new ArrayList<Color>();
-		for (ItemStack stack : ores)
+		ItemModelMesher mesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
+		for (ItemStack stack : ores) {
+			IBakedModel model = mesher.getItemModel(stack);
 			try {
-				BufferedImage texture = ImageIO.read(Minecraft.getMinecraft().getResourceManager().getResource(getIconResource(stack)).getInputStream());
+				BufferedImage texture = ImageIO.read(Minecraft.getMinecraft().getResourceManager().getResource(getIconResource(model)).getInputStream());
 				Color texColour = getAverageColour(texture);
 				colours.add(texColour);
-				for (int pass = 0; pass < stack.getItem().getRenderPasses(stack.getItemDamage()); pass++) {
-					int c = getStackColour(stack, pass);
+				for (BakedQuad quad : (List<BakedQuad>) model.func_177550_a()) {
+					int c = getStackColour(stack, quad.func_178211_c());
 					if (c != 0xFFFFFF) {
 						colours.add(new Color(c));
 						colours.remove(texColour);
 					}
 				}
 			} catch (Exception e) {
+				e.printStackTrace();
 				continue;
 			}
+		}
 
 		for (Color c : colours) {
 			red += c.getRed();
@@ -167,15 +206,8 @@ public class OreFinder {
 		return new Color((int) (red / count), (int) (green / count), (int) (blue / count));
 	}
 
-	private static String getIconName(ItemStack stack) {
-		IIcon icon = stack.getItem().getIconFromDamage(stack.getItemDamage());
-		if (icon != null)
-			return icon.getIconName();
-		return null;
-	}
-
-	private static ResourceLocation getIconResource(ItemStack stack) {
-		String iconName = getIconName(stack);
+	private static ResourceLocation getIconResource(IBakedModel model) {
+		String iconName = model.getTexture().getIconName();
 		if (iconName == null)
 			return null;
 
@@ -190,7 +222,8 @@ public class OreFinder {
 		}
 
 		string = string.toLowerCase();
-		iconName = "textures/items/" + iconName + ".png";
+		iconName = "textures/" + iconName + ".png";
+		System.out.println(new ResourceLocation(string, iconName));
 		return new ResourceLocation(string, iconName);
 	}
 }

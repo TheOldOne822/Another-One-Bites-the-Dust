@@ -3,15 +3,6 @@ package ganymedes01.aobd.recipes.modules;
 import ganymedes01.aobd.lib.CompatType;
 import ganymedes01.aobd.ore.Ore;
 import ganymedes01.aobd.recipes.RecipesModule;
-import ganymedes01.ganysnether.recipes.MagmaticCentrifugeRecipes;
-
-import java.util.List;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class GanysNetherModule extends RecipesModule {
 
@@ -21,6 +12,7 @@ public class GanysNetherModule extends RecipesModule {
 
 	@Override
 	public void initOre(Ore ore) {
+		/*
 		String name = ore.name();
 		ItemStack ingot = getOreStack("ingot", ore);
 		ItemStack nugget = getOreStackExtra("nugget", ore);
@@ -28,8 +20,10 @@ public class GanysNetherModule extends RecipesModule {
 		MagmaticCentrifugeRecipes.INSTANCE.addRecipe("ore" + name, "ore" + name, ingot, ingot, ingot, nugget);
 		addRecipe(new ShapedOreRecipe(ingot.copy(), "xxx", "xxx", "xxx", 'x', nugget.copy()));
 		addRecipe(new ShapedOreRecipe(getOreStackExtra("nugget", ore, 9), "x", 'x', ingot.copy()));
+		 */
 	}
 
+	/*
 	@SuppressWarnings("unchecked")
 	private void addRecipe(ShapedOreRecipe recipe) {
 		for (IRecipe r : (List<IRecipe>) CraftingManager.getInstance().getRecipeList())
@@ -80,4 +74,5 @@ public class GanysNetherModule extends RecipesModule {
 
 		return false;
 	}
+	 */
 }

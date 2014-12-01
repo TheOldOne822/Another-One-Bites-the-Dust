@@ -13,8 +13,8 @@ import java.util.Set;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public abstract class RecipesModule {
 
@@ -110,7 +110,7 @@ public abstract class RecipesModule {
 
 	@SuppressWarnings("unchecked")
 	protected void addSmeltingNoDupes(ItemStack input, ItemStack output, float xp) {
-		for (ItemStack stack : (Set<ItemStack>) FurnaceRecipes.smelting().getSmeltingList().keySet())
+		for (ItemStack stack : (Set<ItemStack>) FurnaceRecipes.instance().getSmeltingList().keySet())
 			if (areStacksTheSame(stack, input))
 				return;
 		GameRegistry.addSmelting(input, output, xp);

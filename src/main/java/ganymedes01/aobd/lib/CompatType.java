@@ -15,7 +15,7 @@ import ganymedes01.aobd.recipes.modules.RandomAdditionsModule;
 import ganymedes01.aobd.recipes.modules.ThaumcraftModule;
 import ganymedes01.aobd.recipes.modules.ThermalExpansionModule;
 import ganymedes01.aobd.recipes.modules.UltraTechModule;
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.common.Loader;
 
 public enum CompatType {
 

@@ -6,7 +6,7 @@ import ganymedes01.aobd.ore.Ore;
 import java.util.HashMap;
 import java.util.Map;
 
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModulesHandler {
 

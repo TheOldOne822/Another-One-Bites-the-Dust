@@ -3,13 +3,6 @@ package ganymedes01.aobd.recipes.modules;
 import ganymedes01.aobd.lib.CompatType;
 import ganymedes01.aobd.ore.Ore;
 import ganymedes01.aobd.recipes.RecipesModule;
-import ic2.api.recipe.IRecipeInput;
-import ic2.api.recipe.RecipeInputOreDict;
-import ic2.api.recipe.Recipes;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class IC2Module extends RecipesModule {
 
@@ -19,6 +12,7 @@ public class IC2Module extends RecipesModule {
 
 	@Override
 	public void initOre(Ore ore) {
+		/*
 		ItemStack stoneDust = getICItem("stoneDust");
 
 		String name = ore.name();
@@ -40,8 +34,10 @@ public class IC2Module extends RecipesModule {
 
 		} catch (Exception e) {
 		}
+		 */
 	}
 
+	/*
 	private static void addCentrifugeRecipe(IRecipeInput input, int minHeat, ItemStack... output) {
 		NBTTagCompound metadata = new NBTTagCompound();
 		metadata.setInteger("minHeat", minHeat);
@@ -64,4 +60,5 @@ public class IC2Module extends RecipesModule {
 			throw new RuntimeException(e);
 		}
 	}
+	 */
 }

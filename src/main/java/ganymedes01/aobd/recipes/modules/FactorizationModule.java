@@ -1,16 +1,8 @@
 package ganymedes01.aobd.recipes.modules;
 
-import factorization.oreprocessing.TileEntityCrystallizer;
-import factorization.oreprocessing.TileEntityGrinder;
-import factorization.oreprocessing.TileEntitySlagFurnace;
 import ganymedes01.aobd.lib.CompatType;
 import ganymedes01.aobd.ore.Ore;
 import ganymedes01.aobd.recipes.RecipesModule;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class FactorizationModule extends RecipesModule {
 
@@ -20,6 +12,7 @@ public class FactorizationModule extends RecipesModule {
 
 	@Override
 	public void initOre(Ore ore) {
+		/*
 		String name = ore.name();
 		ItemStack ingot = getOreStack("ingot", ore);
 		ItemStack reduced = getOreStack("reduced", ore);
@@ -47,8 +40,10 @@ public class FactorizationModule extends RecipesModule {
 		GameRegistry.addSmelting(dirtyGravel, ingot, 1.0F);
 		GameRegistry.addSmelting(cleanGravel, ingot, 1.0F);
 		GameRegistry.addSmelting(crystalline, ingot, 1.0F);
+		 */
 	}
 
+	/*
 	private static void addSlagFurnaceRecipe(Object input, Object output1, float prob1, Object output2, float prob2) {
 		TileEntitySlagFurnace.SlagRecipes.register(input, prob1, output1, prob2, output2);
 	}
@@ -60,4 +55,5 @@ public class FactorizationModule extends RecipesModule {
 	private static void addCrystalliserRecipe(ItemStack input, ItemStack output, float output_count, ItemStack solution) {
 		TileEntityCrystallizer.addRecipe(input, output, output_count, solution);
 	}
+	 */
 }
