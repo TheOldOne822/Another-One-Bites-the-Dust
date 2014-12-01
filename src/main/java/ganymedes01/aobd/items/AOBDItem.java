@@ -51,12 +51,4 @@ public class AOBDItem extends Item {
 
 		return hasEffect;
 	}
-
-	//
-	//	@SideOnly(Side.CLIENT)
-	//	public IItemRenderer getSpecialRenderer() {
-	//		if ("ore".equals(base))
-	//			return ItemOreRenderer.INSTANCE;
-	//		return null;
-	//	}
 }
