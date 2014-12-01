@@ -9,7 +9,6 @@ import ganymedes01.aobd.recipes.ModulesHandler;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -150,7 +149,7 @@ public class OreFinder {
 
 	@SuppressWarnings("unchecked")
 	private static Color getColour(String oreName) {
-		ArrayList<ItemStack> ores = OreDictionary.getOres("ingot" + oreName);
+		List<ItemStack> ores = OreDictionary.getOres("ingot" + oreName);
 		if (ores.isEmpty())
 			return null;
 
