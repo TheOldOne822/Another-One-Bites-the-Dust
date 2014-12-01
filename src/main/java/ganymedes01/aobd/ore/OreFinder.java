@@ -157,7 +157,7 @@ public class OreFinder {
 		float red = 0;
 		float green = 0;
 		float blue = 0;
-		ArrayList<Color> colours = new ArrayList<Color>();
+		Set<Color> colours = new LinkedHashSet<Color>();
 		ItemModelMesher mesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
 		for (ItemStack stack : ores) {
 			IBakedModel model = mesher.getItemModel(stack);
@@ -173,7 +173,6 @@ public class OreFinder {
 					}
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
 				continue;
 			}
 		}
