@@ -223,7 +223,6 @@ public class OreFinder {
 
 		string = string.toLowerCase();
 		iconName = "textures/" + iconName + ".png";
-		System.out.println(new ResourceLocation(string, iconName));
 		return new ResourceLocation(string, iconName);
 	}
 }
