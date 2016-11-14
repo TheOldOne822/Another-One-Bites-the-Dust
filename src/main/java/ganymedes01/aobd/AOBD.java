@@ -37,7 +37,7 @@ public class AOBD {
 
 		@Override
 		public Item getTabIconItem() {
-			return Items.glowstone_dust;
+			return Items.GLOWSTONE_DUST;
 		}
 	};
 
@@ -90,6 +90,6 @@ public class AOBD {
 	public void stitchEventPre(TextureStitchEvent.Pre event) {
 		// Register icons for Mekanism's gases
 		if (Loader.isModLoaded("Mekanism"))
-			MekanismModule.registerIcons(event.map);
+			MekanismModule.registerIcons(event.getMap());
 	}
 }

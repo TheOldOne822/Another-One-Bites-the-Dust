@@ -21,13 +21,15 @@ import javax.imageio.ImageIO;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.resources.model.IBakedModel;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ModelBakery;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.FMLLaunchHandler;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class OreFinder {
@@ -127,24 +129,11 @@ public class OreFinder {
 			OreDictionary.registerOre(ore, item);
 			itemMap.put(ore, item);
 
+			if(FMLLaunchHandler.side().isClient()){
 			ItemModelMesher mesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
-			mesher.register(item, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + item.getBaseName(), "inventory"));
-			ModelBakery.addVariantName(item, Reference.MOD_ID + ":" + item.getBaseName());
+			mesher.register(item, 0, new net.minecraft.client.renderer.block.model.ModelResourceLocation(Reference.MOD_ID + ":" + item.getBaseName(), "inventory"));
+			ModelBakery.registerItemVariants(item, new ResourceLocation(Reference.MOD_ID + ":" + item.getBaseName()));}
 		}
-	}
-
-	private static int getStackColour(ItemStack stack, int pass) {
-		if (Loader.isModLoaded("gregtech"))
-			try {
-				Class<?> cls = Class.forName("gregtech.api.items.GT_MetaGenerated_Item");
-				if (cls.isAssignableFrom(stack.getItem().getClass())) {
-					Method m = cls.getMethod("getRGBa", ItemStack.class);
-					short[] rgba = (short[]) m.invoke(stack.getItem(), stack);
-					return new Color(rgba[0], rgba[1], rgba[2], rgba[3]).getRGB();
-				}
-			} catch (Exception e) {
-			}
-		return stack.getItem().getColorFromItemStack(stack, pass);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -164,13 +153,6 @@ public class OreFinder {
 				BufferedImage texture = ImageIO.read(Minecraft.getMinecraft().getResourceManager().getResource(getIconResource(model)).getInputStream());
 				Color texColour = getAverageColour(texture);
 				colours.add(texColour);
-				for (BakedQuad quad : (List<BakedQuad>) model.func_177550_a()) {
-					int c = getStackColour(stack, quad.func_178211_c());
-					if (c != 0xFFFFFF) {
-						colours.add(new Color(c));
-						colours.remove(texColour);
-					}
-				}
 			} catch (Exception e) {
 				continue;
 			}
@@ -205,7 +187,7 @@ public class OreFinder {
 	}
 
 	private static ResourceLocation getIconResource(IBakedModel model) {
-		String iconName = model.getTexture().getIconName();
+		String iconName = model.getParticleTexture().getIconName();
 		if (iconName == null)
 			return null;
 
